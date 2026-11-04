@@ -26,9 +26,19 @@ class StudentInformation(models.Model):
 
     previous_record_ids = fields.One2many('student.school.history', 'student_id', string='Previous School Records') 
 
+    image = fields.Binary(string='Image')
+    student_documents_ids = fields.Many2many('ir.attachment', string='Student Documents')
+    student_notes = fields.Text(string='Student Notes')
+
 
     def confirm_student(self):
 
         for record in self:
             if record.status == 'draft':
                 record.status = 'confirmed'
+
+    def reset_to_draft(self):
+
+        for record in self:
+            if record.status == 'confirmed':
+                record.status = 'draft'
