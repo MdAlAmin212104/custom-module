@@ -7,21 +7,30 @@
         <field name="model">student.information</field>
         <field name="arch" type="xml">
             <form string="Student Information">
+
+                <header>
+                    <button type="object" invisible="status != 'draft'" string="Confirm Student" name="confirm_student" class="btn-primary"/>
+
+                    <field name="status" widget="statusbar"/>
+                </header>
+
                 <sheet>
                     <group>
                         <group string="Personal Information">
-                            <field name="name"/>
-                            <field name="roll_number"/>
-                            <field name="phone"/>
-                            <field name="email"/>
-                            <field name="birth_date"/>
+                            <field name="name" readonly="status != 'draft'"/>
+                            <field name="roll_number" readonly="status != 'draft'"/>
+                            <field name="phone" readonly="status != 'draft'"/>
+                            <field name="email" readonly="status != 'draft'"/>
+                            <field name="birth_date" readonly="status != 'draft'"/>
                         </group>
                         <group string="Parent Information">
-                            <field name="father_name"/>
-                            <field name="mother_name"/>
+                            <field name="father_name" readonly="status != 'draft'"/>
+                            <field name="mother_name" readonly="status != 'draft'"/>
                         </group>
                     </group>
                 </sheet>
+
+                <chatter/>
             </form>
         </field>
     </record>
@@ -31,7 +40,7 @@
         <field name="name">student.information.list</field>
         <field name="model">student.information</field>
         <field name="arch" type="xml">
-            <list string="Student Information">
+            <list string="Student Information" decoration-muted="status == 'draft'" decoration-success="status == 'confirmed'">
                 <field name="name"/>
                 <field name="roll_number"/>
                 <field name="phone"/>
@@ -39,6 +48,7 @@
                 <field name="birth_date"/>
                 <field name="father_name"/>
                 <field name="mother_name"/>
+                <field name="status"/>
             </list>
         </field>
     </record>

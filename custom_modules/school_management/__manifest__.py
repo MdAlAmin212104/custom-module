@@ -5,7 +5,7 @@
     "description": "A comprehensive module for managing school operations, including student enrollment, attendance tracking, grade management, and more.",
     "author": "Al Amin",
     "category": "Education",
-    "depends": ["base"],
+    "depends": ["base", "portal", "mail"],
     "data": [
         "security/ir.model.access.csv",
         "views/student_information.xml",
