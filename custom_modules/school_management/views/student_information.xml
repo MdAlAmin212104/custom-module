@@ -28,6 +28,18 @@
                             <field name="mother_name" readonly="status != 'draft'"/>
                         </group>
                     </group>
+                    <notebook>
+                        <page string="Previous Records">
+                            <field name="previous_record_ids">
+                                <list editable="bottom">
+                                    <field name="student_id" column_visible="1"/>
+                                    <field name="other_school_id"/>
+                                    <field name="passing_year"/>
+                                    <field name="class_name"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
                 </sheet>
 
                 <chatter/>

@@ -24,6 +24,8 @@ class StudentInformation(models.Model):
     ], default='draft', string='Status', tracking=True)
 
 
+    previous_record_ids = fields.One2many('student.school.history', 'student_id', string='Previous School Records') 
+
 
     def confirm_student(self):
 
