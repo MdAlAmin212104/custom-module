@@ -28,6 +28,7 @@
                             <field name="phone" readonly="status != 'draft'"/>
                             <field name="email" readonly="status != 'draft'"/>
                             <field name="birth_date" readonly="status != 'draft'"/>
+                            <field name="class_id" readonly="status != 'draft'" options="{'no_create': True, 'no_edit': True, 'no_open': True}"/>
                         </group>
                         <group string="Parent Information">
                             <field name="father_name" readonly="status != 'draft'"/>
@@ -73,6 +74,7 @@
                 <field name="roll_number"/>
                 <field name="phone"/>
                 <field name="email"/>
+                <field name="class_id"/>
                 <field name="birth_date"/>
                 <field name="father_name"/>
                 <field name="mother_name"/>
@@ -94,6 +96,7 @@
                 <field name="phone"/>
                 <field name="image"/>
                 <field name="status"/>
+                <field name="class_id"/>
                 <templates>
                     <t t-name="card" class="flex-row">
                         <aside class="o_kanban_aside_full">
@@ -120,7 +123,12 @@
                             <div class="mt-1">
                                 <field name="status" widget="label_selection"
                                        options="{'classes': {'draft': 'secondary', 'confirmed': 'success'}}"/>
+                            </div>  
+
+                            <div t-if="record.class_id.raw_value" class="mt-1">
+                                Class: <field name="class_id" string="Class"/>
                             </div>
+                            
                         </main>
                     </t>
                 </templates>
@@ -145,12 +153,13 @@
     </record>
 
     <!-- Main Menu -->
-    <menuitem id="school_management_menu" name="School Management" sequence="1"/>
+    <menuitem id="school_management_menu" name="School Management"/>
 
     <!-- Student Sub Menu -->
     <menuitem id="student_information_menu"
               name="Student Information"
               parent="school_management_menu"
-              action="student_information_action"/>
+              action="student_information_action"
+              sequence="1"/>
 
 </odoo>

@@ -29,6 +29,7 @@ class StudentInformation(models.Model):
     image = fields.Binary(string='Image')
     student_documents_ids = fields.Many2many('ir.attachment', string='Student Documents')
     student_notes = fields.Text(string='Student Notes')
+    class_id = fields.Many2one('class.information', string='Class', tracking=True)
 
 
     def confirm_student(self):
