@@ -1,4 +1,5 @@
 from odoo import fields, models
+from odoo.exceptions import ValidationError
 
 
 
@@ -30,6 +31,7 @@ class StudentInformation(models.Model):
     student_documents_ids = fields.Many2many('ir.attachment', string='Student Documents')
     student_notes = fields.Text(string='Student Notes')
     class_id = fields.Many2one('class.information', string='Class', tracking=True)
+    gender = fields.Selection([('male', 'Male'), ('female', 'Female')], string='Gender')
 
 
     def confirm_student(self):
@@ -43,3 +45,11 @@ class StudentInformation(models.Model):
         for record in self:
             if record.status == 'confirmed':
                 record.status = 'draft'
+
+
+    def create(self, vals):
+        res = super(StudentInformation, self).create(vals)
+        existing_student = self.env['student.information'].search([('phone', '=', vals.get('phone')), ('id', '!=', res.id)], limit=1)
+        if existing_student:
+            raise ValidationError("A student with this phone number already exists.")  
+        return res
